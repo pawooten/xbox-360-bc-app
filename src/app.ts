@@ -1,5 +1,5 @@
 import express from 'express';
-import { load } from './json-loader';
+import { load, loadSettings } from './json-loader';
 
 const title = 'XBOX 360 BC App';
 console.log(title);
@@ -11,20 +11,19 @@ if (data.error) {
 }
 console.log(data.message);
 const app = express();
-const port = 3000;
-const minSearchLength = 3;
+const settings = loadSettings();
 
 app.get('/', (req, res) => {
-    const result = searchGames(req.query.search as string);
+    const result = searchGames(req.query.search as string, settings.minSearchLength);
     res.status(200).send(result);
     return;
   });
   
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(settings.port, () => {
+  console.log(`Server is running on port ${settings.port}`);
 });
 
-const searchGames = (query: string) => {
+const searchGames = (query: string, minSearchLength: number) => {
     if (!query || query.length === 0) {
         return { message: 'No search specified', games: [] };
     }

@@ -1,4 +1,5 @@
 import data from '../data.json';
+import settings from '../settings.json';
 
 export const load = () => {
     if (!data) {
@@ -8,4 +9,8 @@ export const load = () => {
         return { message: 'No games found in data.json', error: true, games: [] };
     }
     return {message: `${data.games.length} games found in data.json`, error: false, games: data.games };
+};
+
+export const loadSettings = () => {
+    return settings;
 };
