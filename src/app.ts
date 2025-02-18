@@ -10,17 +10,9 @@ const port = 3000;
 const minSearchLength = 3;
 
 app.get('/', (req, res) => {
-    const search = req.query.search;
-    if (search) {
-        const results = searchGames(search as string);
-        if (results.games.length === 0) {
-            res.status(200).send(results.message);
-            return;
-        }
-        res.status(200).send(`${results.message} ${results.games.join(', ')}`);
-        return;
-    }
-    res.status(200).send(title);
+    const result = searchGames(req.query.search as string);
+    res.status(200).send(result);
+    return;
   });
   
 app.listen(port, () => {
@@ -28,14 +20,17 @@ app.listen(port, () => {
 });
 
 const searchGames = (query: string) => {
+    if (!query || query.length === 0) {
+        return { message: 'No search specified', games: [] };
+    }
     if (query.length < minSearchLength) {
-        return { message: `''${query}'' Too short, specify at least ${minSearchLength} characters`, games: [] };
+        return { message: `${query} Too short, specify at least ${minSearchLength} characters`, games: [] };
     }
     const matchingGames = data.games.filter((game) => {
         return game.toLowerCase().includes(query.toLowerCase());
     });
     if (matchingGames.length === 0) {
-        return { message: `''${query}'' No results found`, games: [] };
+        return { message: `${query} No results found`, games: [] };
     }
     return { message: `'${query}' (${matchingGames.length})`, games: matchingGames };
 }
