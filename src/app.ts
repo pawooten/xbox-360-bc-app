@@ -1,10 +1,15 @@
 import express from 'express';
-import data from '../data.json';
+import { load } from './json-loader';
+
 const title = 'XBOX 360 BC App';
 console.log(title);
 
- console.log(`${data.games.length} games found in data.json`);
-
+const data = load();
+if (data.error) {
+    console.error(data.message);
+    process.exit(1);
+}
+console.log(data.message);
 const app = express();
 const port = 3000;
 const minSearchLength = 3;
