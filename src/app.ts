@@ -7,6 +7,7 @@ console.log(title);
 
 const app = express();
 const port = 3000;
+const minSearchLength = 3;
 
 app.get('/', (req, res) => {
     const search = req.query.search;
@@ -27,6 +28,9 @@ app.listen(port, () => {
 });
 
 const searchGames = (query: string) => {
+    if (query.length < minSearchLength) {
+        return { message: `''${query}'' Too short, specify at least ${minSearchLength} characters`, games: [] };
+    }
     const matchingGames = data.games.filter((game) => {
         return game.toLowerCase().includes(query.toLowerCase());
     });
