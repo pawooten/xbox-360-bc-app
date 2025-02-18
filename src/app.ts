@@ -1,5 +1,6 @@
 import express from 'express';
 import { GameData, load, loadSettings, Settings } from './json-loader';
+import { searchGames } from './search';
 
 const gameData = load();
 if (gameData.error) {
@@ -23,19 +24,3 @@ app.get('/', (req, res) => {
 app.listen(settings.port, () => {
   console.log(`Server is running on port ${settings.port}`);
 });
-
-const searchGames = (query: string, settings: Settings, gameData: GameData) => {
-    if (!query || query.length === 0) {
-        return { message: 'No search specified', games: [] };
-    }
-    if (query.length < settings.minSearchLength) {
-        return { message: `${query} Too short, specify at least ${settings.minSearchLength} characters`, games: [] };
-    }
-    const matchingGames = gameData.games.filter((game) => {
-        return game.toLowerCase().includes(query.toLowerCase());
-    });
-    if (matchingGames.length === 0) {
-        return { message: `${query} No results found`, games: [] };
-    }
-    return { message: `'${query}' (${matchingGames.length})`, games: matchingGames };
-}
