@@ -1,0 +1,11 @@
+{
+  "name": "xbox-360-bc-app",
+  "version": "1.0.0",
+  "description": "Search for XBOX 360 Titles that are backwards compatible on later XBOX consoles",
+  "main": "app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paul Wooten",
+  "license": "ISC"
+}
