@@ -11,3 +11,5 @@ Quickly determine if a physical US XBOX 360 game is backwards compatible with mo
 - Exclude PAL region games
 - StartsWith / Contains search type
   - An ExactMatch search type doesn't seem particularly useful to anticipated use cases
+- Tests
+- README
