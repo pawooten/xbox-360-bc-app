@@ -1,5 +1,5 @@
 import express from 'express';
-import { load, loadSettings, Settings } from './json-loader';
+import { GameData, load, loadSettings, Settings } from './json-loader';
 
 const gameData = load();
 if (gameData.error) {
@@ -24,7 +24,7 @@ app.listen(settings.port, () => {
   console.log(`Server is running on port ${settings.port}`);
 });
 
-const searchGames = (query: string, settings: Settings, gameData) => {
+const searchGames = (query: string, settings: Settings, gameData: GameData) => {
     if (!query || query.length === 0) {
         return { message: 'No search specified', games: [] };
     }
