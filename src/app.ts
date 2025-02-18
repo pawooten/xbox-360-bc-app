@@ -12,11 +12,11 @@ app.get('/', (req, res) => {
     const search = req.query.search;
     if (search) {
         const results = searchGames(search as string);
-        if (results.length === 0) {
-            res.status(200).send(`'${search}' No results found`);
+        if (results.games.length === 0) {
+            res.status(200).send(results.message);
             return;
         }
-        res.status(200).send(`'${search}' (${results.length}) ${results.join(', ')}`);
+        res.status(200).send(`${results.message} ${results.games.join(', ')}`);
         return;
     }
     res.status(200).send(title);
@@ -27,8 +27,11 @@ app.listen(port, () => {
 });
 
 const searchGames = (query: string) => {
-    const results = data.games.filter((game) => {
+    const matchingGames = data.games.filter((game) => {
         return game.toLowerCase().includes(query.toLowerCase());
     });
-    return results;
+    if (matchingGames.length === 0) {
+        return { message: `''${query}'' No results found`, games: [] };
+    }
+    return { message: `'${query}' (${matchingGames.length})`, games: matchingGames };
 }
