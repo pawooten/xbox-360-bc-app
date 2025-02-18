@@ -4,8 +4,12 @@
   "description": "Search for XBOX 360 Titles that are backwards compatible on later XBOX consoles",
   "main": "app.ts",
   "scripts": {
+    "start": "tsx watch src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Paul Wooten",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "tsx": "^4.19.2"
+  }
 }
