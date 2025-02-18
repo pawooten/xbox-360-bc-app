@@ -1,4 +1,5 @@
 {
     "port": 3000,
-    "minSearchLength": 3
+    "minSearchLength": 3,
+    "title": "XBOX 360 BC App"
 }

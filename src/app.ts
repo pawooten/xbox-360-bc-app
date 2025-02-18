@@ -1,17 +1,18 @@
 import express from 'express';
 import { load, loadSettings } from './json-loader';
 
-const title = 'XBOX 360 BC App';
-console.log(title);
-
-const data = load();
-if (data.error) {
-    console.error(data.message);
+const gameData = load();
+if (gameData.error) {
+    console.error(gameData.message);
     process.exit(1);
 }
-console.log(data.message);
-const app = express();
+
 const settings = loadSettings();
+if (settings.title) {
+    console.log(settings.title);
+}
+console.log(gameData.message);
+const app = express();
 
 app.get('/', (req, res) => {
     const result = searchGames(req.query.search as string, settings.minSearchLength);
@@ -30,7 +31,7 @@ const searchGames = (query: string, minSearchLength: number) => {
     if (query.length < minSearchLength) {
         return { message: `${query} Too short, specify at least ${minSearchLength} characters`, games: [] };
     }
-    const matchingGames = data.games.filter((game) => {
+    const matchingGames = gameData.games.filter((game) => {
         return game.toLowerCase().includes(query.toLowerCase());
     });
     if (matchingGames.length === 0) {
