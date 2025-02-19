@@ -15,8 +15,10 @@ if (settings.title) {
 console.log(gameData.message);
 const app = express();
 
-app.get('/', (req, res) => {
-    const result = searchGames(req.query.search as string, settings, gameData);
+app.use(express.static('public'));
+
+app.get('/search', (req, res) => {
+    const result = searchGames(req.query.q as string, settings, gameData);
     res.status(200).send(result);
     return;
   });
