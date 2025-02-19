@@ -1,6 +1,8 @@
 import data from '../data.json';
 import settings from '../settings.json';
 import { LogMessages } from './constants';
+import { GameData } from './game-data';
+import { Settings } from './settings';
 
 export const load = (): GameData => {
     if (!data) {
@@ -15,14 +17,3 @@ export const load = (): GameData => {
 export const loadSettings = (): Settings => {
     return settings;
 };
-
-export interface GameData {
-    games: string[];
-    error: boolean;
-    message: string;
-}
-export interface Settings {
-    port: number;
-    minSearchLength: number;
-    title: string;
-}

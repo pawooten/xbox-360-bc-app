@@ -1,4 +1,5 @@
-import { GameData, Settings } from "./json-loader";
+import { GameData } from "./game-data";
+import { Settings } from "./settings";
 
 export const searchGames = (query: string, settings: Settings, gameData: GameData) => {
     if (!query || query.length === 0) {
